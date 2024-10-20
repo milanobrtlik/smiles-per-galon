@@ -1,0 +1,26 @@
+targets:
+  $default:
+    builders:
+      graphql_codegen:
+        options:
+          clients:
+            - graphql
+          scalars:
+            DateTime:
+              type: DateTime
+            Date:
+              type: DateTime
+            Decimal:
+              type: double
+            Upload:
+              type: MultipartFile
+              import: 'package:http/http.dart'
+            Position:
+              type: Position
+              fromJsonFunctionName: customPositionFromJson
+              toJsonFunctionName: customPositionToJson
+              import: 'package:whereisourcar/custom_graphql_scalars.dart'
+            TimeSpan:
+              type: String
+            Coordinates:
+              type: List<double>

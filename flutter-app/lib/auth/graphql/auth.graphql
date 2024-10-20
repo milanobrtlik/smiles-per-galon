@@ -1,0 +1,25 @@
+mutation getShortLivedToken {
+    shortLivedToken {
+        token
+        errors {
+            ...ErrorDetail
+        }
+    }
+}
+
+mutation emailLogin($input: EmailSignInInputTypeInput!) {
+    emailSignIn(input: $input) {
+        token
+        errors {
+            ...ErrorDetail
+        }
+    }
+}
+
+mutation emailSignUp($input: EmailSignUpInputTypeInput!) {
+    emailSignUp(input: $input)
+}
+
+mutation signInGoogle($idToken: String!) {
+    googleSignIn(idToken: $idToken)
+}

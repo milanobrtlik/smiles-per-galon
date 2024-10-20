@@ -1,0 +1,57 @@
+fragment ErrorDetail on UserError {
+    message
+    code
+}
+
+fragment Location on GeoJSONPointType {
+    bbox
+    coordinates
+    crs
+    type
+}
+
+fragment UserFragment on User {
+    id
+    name
+    avatarUrl
+}
+
+fragment MeFragment on User {
+    ...UserFragment
+    email
+}
+
+fragment CarList on Car {
+    id
+    licencePlate
+    users {
+        ...UserFragment
+    }
+}
+
+fragment PositionDetail on PositionHistory {
+    id
+    createdAt
+    parkedBy {
+        ...UserFragment
+    }
+    location {
+        ...Location
+    }
+    photos {
+        ...PhotoDetail
+    }
+}
+
+fragment CarDetail on Car {
+    ...CarList
+    lastPosition {
+        ...PositionDetail
+    }
+}
+
+fragment PhotoDetail on Photo {
+    id
+    thumb
+    full
+}

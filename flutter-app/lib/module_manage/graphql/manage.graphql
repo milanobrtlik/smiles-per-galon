@@ -1,0 +1,33 @@
+query carList {
+    carList {
+        ...CarList
+    }
+}
+
+query carDetail($id: ID!) {
+    carDetail(id: $id) {
+        ...CarDetail
+    }
+}
+
+mutation carCreate ($input: CarCreateInput!){
+    carCreate(createInput: $input) {
+        car {
+            ...CarDetail
+        }
+        errors {
+            ...ErrorDetail
+        }
+    }
+}
+
+mutation carUpdate($input: CarUpdateInput!) {
+    carUpdate(input: $input) {
+        car {
+            ...CarDetail
+        }
+        errors {
+            ...ErrorDetail
+        }
+    }
+}

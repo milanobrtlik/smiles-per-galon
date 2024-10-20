@@ -1,0 +1,268 @@
+# This file was generated. Do not edit manually.
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+interface GeoJSONInterface {
+    "The minimum bounding box around the geometry object"
+    bbox: [Float]
+    "The coordinate reference system integer identifier"
+    crs: Int
+    "The geometry type of the GeoJson object"
+    type: GeoJSONGeometryType!
+}
+
+type AuthTokenPayload {
+    errors: [UserError!]!
+    token: String
+}
+
+type Car {
+    id: ID!
+    lastPosition: PositionHistory
+    licencePlate: String!
+    users: [User]
+}
+
+type CarPayload {
+    car: Car
+    errors: [UserError!]!
+}
+
+type ConfirmationPayload {
+    errors: [UserError!]!
+}
+
+type GeoJSONLineStringType implements GeoJSONInterface {
+    "The minimum bounding box around the geometry object"
+    bbox: [Float!]!
+    "The \"coordinates\" field is an array of two or more positions."
+    coordinates: [Position]
+    "The coordinate reference system integer identifier"
+    crs: Int!
+    "The geometry type of the GeoJson object"
+    type: GeoJSONGeometryType!
+}
+
+type GeoJSONMultiLineStringType implements GeoJSONInterface {
+    "The minimum bounding box around the geometry object"
+    bbox: [Float!]!
+    "The \"coordinates\" field is an array of LineString coordinate arrays."
+    coordinates: [Position]
+    "The coordinate reference system integer identifier"
+    crs: Int!
+    "The geometry type of the GeoJson object"
+    type: GeoJSONGeometryType!
+}
+
+type GeoJSONMultiPointType implements GeoJSONInterface {
+    "The minimum bounding box around the geometry object"
+    bbox: [Float!]!
+    "The \"coordinates\" field is an array of positions."
+    coordinates: [Position]
+    "The coordinate reference system integer identifier"
+    crs: Int!
+    "The geometry type of the GeoJson object"
+    type: GeoJSONGeometryType!
+}
+
+type GeoJSONMultiPolygonType implements GeoJSONInterface {
+    "The minimum bounding box around the geometry object"
+    bbox: [Float!]!
+    "The \"coordinates\" field is an array of Polygon coordinate arrays."
+    coordinates: Coordinates
+    "The coordinate reference system integer identifier"
+    crs: Int!
+    "The geometry type of the GeoJson object"
+    type: GeoJSONGeometryType!
+}
+
+type GeoJSONPointType implements GeoJSONInterface {
+    "The minimum bounding box around the geometry object"
+    bbox: [Float!]!
+    "The \"coordinates\" field is a single position."
+    coordinates: Position
+    "The coordinate reference system integer identifier"
+    crs: Int!
+    "The geometry type of the GeoJson object"
+    type: GeoJSONGeometryType!
+}
+
+type GeoJSONPolygonType implements GeoJSONInterface {
+    "The minimum bounding box around the geometry object"
+    bbox: [Float!]!
+    "The \"coordinates\" field MUST be an array of linear ring coordinate arrays. For Polygons with more than one of these rings, the first MUST be the exterior ring, and any others MUST be interior rings. The exterior ring bounds the surface, and the interior rings (if present) bound holes within the surface."
+    coordinates: [[Position]]
+    "The coordinate reference system integer identifier"
+    crs: Int!
+    "The geometry type of the GeoJson object"
+    type: GeoJSONGeometryType!
+}
+
+type Mutation {
+    carAcceptInvitation(token: String!): ConfirmationPayload!
+    carCreate(createInput: CarCreateInput!): CarPayload!
+    carInviteUser(carId: ID!): String!
+    carUpdate(input: CarUpdateInput!): CarPayload!
+    emailSignIn(input: EmailSignInInputTypeInput!): AuthTokenPayload!
+    emailSignUp(input: EmailSignUpInputTypeInput!): Boolean!
+    googleSignIn(idToken: String!): String!
+    positionHistoryInsert(input: PositionHistoryInput!): PositionHistoryPayload!
+    shortLivedToken: AuthTokenPayload!
+}
+
+type Photo {
+    full: String!
+    id: ID!
+    thumb: String!
+}
+
+type PositionHistory {
+    car: Car!
+    createdAt: DateTime!
+    id: ID!
+    location: GeoJSONPointType!
+    parkedBy: User!
+    photos: [Photo]
+}
+
+type PositionHistoryPayload {
+    errors: [UserError!]!
+    positionHistory: PositionHistory
+}
+
+type Query {
+    carDetail(id: ID!): Car
+    carList: [Car!]!
+    me: User!
+}
+
+type User {
+    avatarUrl: String
+    email: String!
+    id: ID!
+    name: String
+}
+
+type UserError {
+    code: String!
+    message: String
+}
+
+enum ApplyPolicy {
+    AFTER_RESOLVER
+    BEFORE_RESOLVER
+    VALIDATION
+}
+
+enum GeoJSONGeometryType {
+    GeometryCollection
+    LineString
+    MultiLineString
+    MultiPoint
+    MultiPolygon
+    Point
+    Polygon
+}
+
+"A coordinate is an array of positions."
+scalar Coordinates
+
+"The `DateTime` scalar represents an ISO-8601 compliant date time type."
+scalar DateTime
+
+scalar Geometry
+
+"A position is an array of numbers. There MUST be two or more elements. The first two elements are longitude and latitude, or easting and northing, precisely in that order and using decimal numbers. Altitude or elevation MAY be included as an optional third element."
+scalar Position
+
+"The `Upload` scalar type represents a file upload."
+scalar Upload
+
+input CarCreateInput {
+    licencePlate: String!
+}
+
+input CarUpdateInput {
+    id: ID!
+    licencePlace: String
+}
+
+input EmailSignInInputTypeInput {
+    email: String!
+    password: String!
+}
+
+input EmailSignUpInputTypeInput {
+    email: String!
+    name: String!
+    password: String!
+}
+
+input GeoJSONLineStringInput {
+    "The \"coordinates\" field is an array of two or more positions."
+    coordinates: [Position]
+    "The coordinate reference system integer identifier"
+    crs: Int
+    "The geometry type of the GeoJson object"
+    type: GeoJSONGeometryType
+}
+
+input GeoJSONMultiLineStringInput {
+    "The \"coordinates\" field is an array of LineString coordinate arrays."
+    coordinates: [[Position]]
+    "The coordinate reference system integer identifier"
+    crs: Int
+    "The geometry type of the GeoJson object"
+    type: GeoJSONGeometryType
+}
+
+input GeoJSONMultiPointInput {
+    "The \"coordinates\" field is an array of positions."
+    coordinates: [Position]
+    "The coordinate reference system integer identifier"
+    crs: Int
+    "The geometry type of the GeoJson object"
+    type: GeoJSONGeometryType
+}
+
+input GeoJSONMultiPolygonInput {
+    "The \"coordinates\" field is an array of Polygon coordinate arrays."
+    coordinates: Coordinates
+    "The coordinate reference system integer identifier"
+    crs: Int
+    "The geometry type of the GeoJson object"
+    type: GeoJSONGeometryType
+}
+
+input GeoJSONPointInput {
+    "The \"coordinates\" field is a single position."
+    coordinates: Position
+    "The coordinate reference system integer identifier"
+    crs: Int
+    "The geometry type of the GeoJson object"
+    type: GeoJSONGeometryType
+}
+
+input GeoJSONPolygonInput {
+    "The \"coordinates\" field MUST be an array of linear ring coordinate arrays. For Polygons with more than one of these rings, the first MUST be the exterior ring, and any others MUST be interior rings. The exterior ring bounds the surface, and the interior rings (if present) bound holes within the surface."
+    coordinates: [[Position]]
+    "The coordinate reference system integer identifier"
+    crs: Int
+    "The geometry type of the GeoJson object"
+    type: GeoJSONGeometryType
+}
+
+input PhotoInput {
+    full: Upload!
+    thumb: Upload!
+}
+
+input PositionHistoryInput {
+    carId: ID!
+    lat: Float!
+    lon: Float!
+    photos: [PhotoInput!]!
+}

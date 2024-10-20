@@ -1,0 +1,10 @@
+mutation positionHistoryInsert($input: PositionHistoryInput!) {
+    positionHistoryInsert(input: $input) {
+        positionHistory {
+            ...PositionDetail
+        }
+        errors {
+            ...ErrorDetail
+        }
+    }
+}

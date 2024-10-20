@@ -1,0 +1,19 @@
+query home {
+    carList {
+        id
+        lastPosition {
+            id
+            location {
+                ...Location
+            }
+            parkedBy {
+                ...UserFragment
+            }
+            createdAt
+            photos {
+                ...PhotoDetail
+            }
+        }
+        licencePlate
+    }
+}

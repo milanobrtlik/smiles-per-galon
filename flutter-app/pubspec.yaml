@@ -1,0 +1,41 @@
+name: whereisourcar
+description: Where is our car
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.19.3 <3.0.0'
+dependencies:
+  flutter:
+    sdk: flutter
+  graphql:
+  hive_flutter:
+  flutter_bloc:
+  jwt_decoder:
+  animations:
+  google_sign_in:
+  map:
+  equatable:
+  formz:
+  cached_network_image:
+  geolocator:
+  latlng:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  json_serializable:
+  build_runner:
+  graphql_codegen:
+  flutter_launcher_icons:
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/sign_in_with_google.png
+    - assets/images/default_user.png
+    - assets/images/dot_pinlet-2-medium.png
+    - assets/images/icon.png
+    - assets/images/spz.png
